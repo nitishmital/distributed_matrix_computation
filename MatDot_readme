@@ -1,0 +1,7 @@
+Install sagemath in Ubuntu with the following command:
+sudo apt-get install sagemath
+
+Run sage with the command: sage
+
+run MatDot.sage in the sage console with the command:
+load("<path to file>/MatDot.sage")
