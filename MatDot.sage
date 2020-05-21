@@ -5,7 +5,6 @@
 
 ## This code simulates source nodes, computing cluster nodes with N workers, and the user wanting to compute a particular function of the input matrices generated on the source nodes using the computing cluster. Redundancy is introduced using MatDot codes proposed in the paper, such that the result can be obtained by the user from any K out of N workers that return their computations first.
 
-## It is observed that the polynomial interpolation on the last step can be prone to occasional errors when the degree of the polynomial is large. This is probably due to Runge's phenomenon when using lagrange interpolation, although I'm not quite sure if that's the reason, or if there is some subtle mistake in the code. If it's the former, then it was not discussed in the original paper.
 ############################################
 
 import random
@@ -161,11 +160,7 @@ for i in range(comp_cluster.nodes[0].mats[2][0].nrows()):
            list_points[l] = (eval[fast_servers[l]],comp_cluster.nodes[fast_servers[l]].mats[2][0][i][j])
            
         f = R.lagrange_polynomial(list_points)
-        C[i,j]=f.coefficients()[K-1]
-        '''
-        if C[i,j]-Cmat[i,j]!=0 :
-            print(list_points)
-        '''
+        C[i,j]=f.coefficients(sparse=False)[K-1]
 
 verify = C - A.mat*B.mat
 print(verify)  # verify must be an all zero matrix if the result is correct.
