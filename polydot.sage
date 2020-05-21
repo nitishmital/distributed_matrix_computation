@@ -54,7 +54,7 @@ class Source(object):
 #############################
 #Function left-encodes the matrix stored in the source instance
 #############################
-     def matdot_rencode(self, N,K1,K):    # encodes the right-matrix (i.e. matrix B)
+     def polydot_rencode(self, N,K1,K):    # encodes the right-matrix (i.e. matrix B)
 
          s_key=[self.size[0],self.size[1]/K]  # size of the keys
          sub_ind=[i*s_key[1] for i in range(1,K)]
@@ -76,7 +76,7 @@ class Source(object):
          self.encoded_mat.subdivide([],sub_ind)
  
 #############################
-     def matdot_lencode(self, N,K):  # encodes the left-matrix (i.e., matrix A)
+     def polydot_lencode(self, N,K):  # encodes the left-matrix (i.e., matrix A)
 
          s_key=[self.size[0]/K,self.size[1]]
          sub_ind=[i*s_key[0] for i in range(1,K)]
@@ -130,10 +130,10 @@ dim1=[60,15]
 dim2=[15,60]
 A=Source([dim1[0],dim1[1]])
 A.gen_data()
-A.matdot_lencode(N,K1)
+A.polydot_lencode(N,K1)
 B=Source([dim2[0],dim2[1]])
 B.gen_data()
-B.matdot_rencode(N,K1,K2)
+B.polydot_rencode(N,K1,K2)
 
 comp_cluster=Cluster(N)
 A.uploadtonodes(comp_cluster,K1)
