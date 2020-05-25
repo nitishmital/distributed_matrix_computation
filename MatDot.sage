@@ -115,18 +115,42 @@ class Source(object):
 # The main program code acts as the user:
 ####################################################################
 
+def reconstruct(fast_servers):
+   R=PolynomialRing(k,'y')
+   C=zero_matrix(k,dim1[0],dim2[1])  #comp_cluster.nodes[0].mats[2][0].nrows(),comp_cluster.nodes[0].mats[2][0].ncols())
+
+   for i in range(comp_cluster.nodes[0].mats[2][0].nrows()):
+      for j in range(comp_cluster.nodes[0].mats[2][0].ncols()):
+         list_points=[(0,0)]*(2*K-1)  
+         # at the (i,j)-th position of the resultant matrices, list_points[] forms the list of the evaluation points of the received matrices. By interpolating on the points in list_points, we will obtain the polynomial C(x) at the (i,j)-th position
+         for l in range(2*K-1):
+            list_points[l] = (eval[fast_servers[l]],comp_cluster.nodes[fast_servers[l]].mats[2][0][i][j]) 
+         f = R.lagrange_polynomial(list_points)
+         '''
+         ##### The following manner of listing the polynomial coefficients excluded the zero terms, which caused a misalignment in the list of coefficients. This was leading to occasional errors in the output. Hence, the argument 'sparse=False' is set so that the zero coefficients are also listed. #########
+         C[i,j]=f.coefficients()[K-1]
+         '''
+         C[i,j]=f.coefficients(sparse=False)[K-1]
+
+   return(C)
+
+def servers_multiply():
+    for i in range(N):
+	comp_cluster.nodes[i].multiply(0,1)  ## computes shares of A*B on each server
+
+''' #### This commented out section demonstrates a particular implementation of the MatDot coded matrix multiplication. 
 q=11^3
 N=8
 K=4
 k.<x>=GF(q) # Fixes a Finite Field of size q
-field_elements=[i for i in k if i not in [0]]  # enumeration of non-zero field elements
+field_elements=[i for i in k] #if i not in [0]]  # enumeration of non-zero field elements
 eval=random.sample(field_elements,N)   # list of randomly picked evaluation points
 
 ###################################################
 ## This section generates the source matrices, encodes them at the source, and uploads the encoded shares to the computing cluster
 ###################################################
-dim1=[1,16]
-dim2=[16,10]
+dim1=[15,60]
+dim2=[60,15]
 A=Source([dim1[0],dim1[1]])
 A.gen_data()
 A.matdot_lencode(N,K)
@@ -142,26 +166,15 @@ B.uploadtonodes(comp_cluster,K)
 ######################################################
 ##### This section illustrates the computation of matrix product A*B.
 ######################################################
-for i in range(N):
-	comp_cluster.nodes[i].multiply(0,1)  ## computes shares of A*B on each server
+
+servers_multiply()
 
 ############ The user interpolates on the received matrices to obtain a polynomial whose (K-1)-th term is the desired matric product  #############
 
 fast_servers=random.sample(range(N),2*K-1)   # the servers that return the values first, i.e., non-stragglers, simulated by randomly sampling from the N servers.
-R=PolynomialRing(k,'y')
-C=zero_matrix(k,dim1[0],dim2[1])  #comp_cluster.nodes[0].mats[2][0].nrows(),comp_cluster.nodes[0].mats[2][0].ncols())
 
-Cmat=A.mat*B.mat
-for i in range(comp_cluster.nodes[0].mats[2][0].nrows()):
-    for j in range(comp_cluster.nodes[0].mats[2][0].ncols()):
-        list_points=[(0,0)]*(2*K-1)  
-        # at the (i,j)-th position of the resultant matrices, list_points[] forms the list of the evaluation points of the received matrices. By interpolating on the points in list_points, we will obtain the polynomial C(x) at the (i,j)-th position
-        for l in range(2*K-1):
-           list_points[l] = (eval[fast_servers[l]],comp_cluster.nodes[fast_servers[l]].mats[2][0][i][j])
-           
-        f = R.lagrange_polynomial(list_points)
-        C[i,j]=f.coefficients(sparse=False)[K-1]
-
+C = reconstruct(fast_servers)
+        
 verify = C - A.mat*B.mat
-print(verify)  # verify must be an all zero matrix if the result is correct.
-
+#print(verify)  # verify must be an all zero matrix if the result is correct.
+'''
