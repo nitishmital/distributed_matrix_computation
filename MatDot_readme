@@ -5,3 +5,43 @@ Run sage with the command: sage
 
 run MatDot.sage in the sage console with the command:
 load("<path to file>/MatDot.sage")
+
+Usage: demonstrates a particular implementation of the MatDot coded matrix multiplication. 
+
+q=11^3
+N=8
+K=4
+k.<x>=GF(q) # Fixes a Finite Field of size q
+field_elements=[i for i in k] #if i not in [0]]  # enumeration of non-zero field elements
+eval=random.sample(field_elements,N)   # list of randomly picked evaluation points
+
+###################################################
+## This section generates the source matrices, encodes them at the source, and uploads the encoded shares to the computing cluster
+###################################################
+dim1=[15,60]
+dim2=[60,15]
+A=Source([dim1[0],dim1[1]])
+A.gen_data()
+A.matdot_lencode(N,K)
+B=Source([dim2[0],dim2[1]])
+B.gen_data()
+B.matdot_rencode(N,K)
+
+comp_cluster=Cluster(N)
+A.uploadtonodes(comp_cluster,K)
+B.uploadtonodes(comp_cluster,K)
+
+
+######################################################
+##### This section illustrates the computation of matrix product A*B.
+######################################################
+
+servers_multiply()
+
+############ The user interpolates on the received matrices to obtain a polynomial whose (K-1)-th term is the desired matric product  #############
+
+fast_servers=random.sample(range(N),2*K-1)   # the servers that return the values first, i.e., non-stragglers, simulated by randomly sampling from the N servers.
+
+C = reconstruct(fast_servers)
+        
+verify = C - A.mat*B.mat
