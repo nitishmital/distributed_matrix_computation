@@ -1,4 +1,5 @@
 ######## Minimum Bandwidth Regenerating code ###############
+## Author : Nitish Mital
 
 ## Implementation of my paper "Practical Functional Regenerating Codes for Broadcast Repair of Multiple Nodes", ISIT Paris, 2019. The code implementation resembles centralized repair more closely because all repair packets are collected in one matrix (Yx, Yy). Theoretically, centralized repair and broadcast repair are equivalent.
 
