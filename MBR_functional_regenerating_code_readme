@@ -1,0 +1,20 @@
+Usage:
+
+sage: load("<path_to_sage_file>/MBR_functional_regenerating_code.sage")
+('initial evaluation points are linearly independent - ', True)
+
+sage: helpers = [1,3,4,7]  # helper nodes
+sage: newcmrs = [2,5]      # newcomer nodes
+sage: repair(helpers,newcmrs)  # call function to repair the newcomers
+
+### Verifying the linear independence of a set of evaluation points 
+
+sage: vpoints = [nodes[j][i,0] for j in [4,5,6,7] for i in range(d)]  # list of all d points in each node 4,5,6,7
+sage: verify_independence(vpoints)
+False  
+## Here it is false because r=2, and the set of points in nodes > r will have some linear dependence.
+
+sage: vpoints = [nodes[j][i,0] for j in [1,5] for i in range(d)]   # list of all d points in r nodes (1,5)
+sage: verify_independence(vpoints)
+True
+### true because the set of points in any r nodes are linearly independent
