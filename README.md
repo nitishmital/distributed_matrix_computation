@@ -45,7 +45,7 @@ The model implemented in this code is slightly different from that in the paper,
 
 This code simulates distributed source nodes, a computing cluster with N computing servers, and the user wanting to compute the multiplication of the input matrices generated on the source nodes using the computing cluster. Redundancy is introduced using MatDot codes proposed in the paper, such that the result can be obtained by the user from any K out of N workers that return their computations first.
 
-## polydot.sage :
+## polynomial_straggler.sage :
 
 Implementation of the paper "Polynomial Codes: an Optimal Design for High-Dimensional Coded Matrix Multiplication" - Qian Yu, Mohammad Ali Maddah-Ali, Salman Avestimehr.
 
