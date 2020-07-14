@@ -7,7 +7,9 @@ I plan to put implementations of my research on this repository, and other inter
 ## 1) SDMC_DFT.sage :
 
 Author: Nitish Mital
+
 Implementation of the paper "Secure Distributed Matrix Computation with Discrete Fourier Transform" - Nitish Mital, Cong Ling, Deniz Gunduz. 
+
 Open access - https://arxiv.org/abs/2007.03972
 
 We consider the problem of secure distributed matrix computation (SDMC), where a user can query a function of data matrices generated at distributed source nodes. We assume the availability of N honest but curious computation servers, which are connected to the sources, the user, and each other through orthogonal and reliable communication links. Our goal is to minimize the amount of data that must be transmitted from the sources to the servers, called the upload cost, while guaranteeing that no T colluding servers can learn any information about the source matrices, and the user cannot learn any information beyond the computation result.
@@ -26,7 +28,13 @@ This code implements matrix multiplication, addition, conversion of shares. The 
 
 ## MBR_functional_regenerating_code.sage :
 
- Implementation of my paper - N. Mital, K. Kralevska, C. Ling, D. Gunduz, "Practical Functional Regenerating Codes for Broadcast Repair of Multiple Nodes", ISIT Paris, 2019. The code implementation resembles centralized repair more closely because all repair packets are collected in one matrix (Yx, Yy). Theoretically, centralized repair and broadcast repair are equivalent.
+Author - Nitish Mital
+
+Implementation of my paper - N. Mital, K. Kralevska, C. Ling, D. Gunduz, "Practical Functional Regenerating Codes for Broadcast Repair of Multiple Nodes", ISIT Paris, 2019. 
+ 
+Open access - https://arxiv.org/abs/1904.07273 
+ 
+The code implementation resembles centralized repair more closely because all repair packets are collected in one matrix (Yx, Yy). Theoretically, centralized repair and broadcast repair are equivalent.
 
 The problem considers a set of n storage nodes, in which a file is stored using a distributed storage code with redundancy so that it is sufficient for any k out of n nodes to be active for a user to retrieve its desired file from them. If r nodes have become out of service, the problem considers the minimization of the amount of communication, called repair bandwidth, required to populate with content the newcomer nodes, that replace the out of service nodes, from the transmitted packets by helper nodes, a subset of the surviving nodes.
 The code -
@@ -37,7 +45,12 @@ This code works only if k and d are divisible by r. An update for other values w
 
 
 ## MatDot.sage :
+
+Author - Nitish Mital
+
 Implementation of the paper "On the Optimal Recovery Threshold of Coded Matrix Multiplication" - Sanghamitra Dutta, Mohammad Fahim, Farzin Haddadpour, Haewon Jeong, Viveck Cadambe.
+
+Open access - https://arxiv.org/abs/1801.10292
 
 This problem considers the problem of multiplication of massive matrices, for applications such as large scale machine learning, on distributed servers, in which the variability of job completion times of different servers causes delays. Slow servers are referred to as stragglers. This approach uses coding theory to distribute parts of the computation to different servers with redundancy, so as to leverage the advantage of distributed computing as well as mitigate the delay caused by straggling servers. 
 
@@ -47,7 +60,11 @@ This code simulates distributed source nodes, a computing cluster with N computi
 
 ## polynomial_straggler.sage :
 
+Author - Nitish Mital
+
 Implementation of the paper "Polynomial Codes: an Optimal Design for High-Dimensional Coded Matrix Multiplication" - Qian Yu, Mohammad Ali Maddah-Ali, Salman Avestimehr.
+
+Open access - https://arxiv.org/abs/1705.10464
 
 Considers the same problem and system model as MatDot.sage above, but employs a different coding algorithm.
 
