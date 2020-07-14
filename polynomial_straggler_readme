@@ -2,4 +2,5 @@
 
 >> load("<path to file>/polydot.sage")
 >> print(verify)  
+
 ** should print an all zero matrix **
