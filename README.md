@@ -36,12 +36,13 @@ Open access - https://arxiv.org/abs/1904.07273
  
 The code implementation resembles centralized repair more closely because all repair packets are collected in one matrix (Yx, Yy). Theoretically, centralized repair and broadcast repair are equivalent.
 
-The problem considers a set of n storage nodes, in which a file is stored using a distributed storage code with redundancy so that it is sufficient for any k out of n nodes to be active for a user to retrieve its desired file from them. If r nodes have become out of service, the problem considers the minimization of the amount of communication, called repair bandwidth, required to populate with content the newcomer nodes, that replace the out of service nodes, from the transmitted packets by helper nodes, a subset of the surviving nodes.
+The problem considers a set of n storage nodes, in which a file is stored using a distributed storage code with redundancy so that it is sufficient for any k out of n nodes to be active for a user to retrieve its desired file from them. If r nodes fail, the problem considers the minimization of the amount of communication required to recover the lost content in newcomer nodes that replace the failed nodes. This is called the repair bandwidth. The newcomer nodes recover the content of the original nodes from the packets broadcasted by the helper nodes (a d-subset of the surviving nodes that participate in the repair process).
+
 The code -
 a) Generates a random message, encodes and stores it in n nodes using the code proposed in the paper.
-b) Contains a function "repair()" that takes as argument a list of helper node indices and newcomer node indices, and implements the novel repair procedure proposed in the paper.
+b) Contains a function "repair()" that takes as argument a list of the indices of the failed nodes and of the indices of the helper nodes, and implements the repair procedure proposed in the paper.
 
-This code works only if k and d are divisible by r. An update for other values will be posted later.
+This code works considers only the case when k and d are divisible by r. An update for other values will be posted later.
 
 
 ## MatDot.sage :
