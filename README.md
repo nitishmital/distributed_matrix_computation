@@ -1,8 +1,7 @@
 # Nitish
-Contains my publications on coded caching, distributed storage, and recent work on distributed computation with robustness against stragglers, byzantine servers, and honest but curious servers.
-I plan to put implementations of my research on this repository, and other interesting readings on deep neural networks and other topics.
+Contains codes for my publications on distributed storage and private distributed computation, and related papers on distributed computation with robustness against stragglers, byzantine servers, and honest but curious servers.
 
-# List of codes in the repository:
+# List of files in the repository:
 
 ## 1) SDMC_DFT.sage :
 
