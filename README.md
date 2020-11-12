@@ -1,4 +1,3 @@
-# Nitish
 Contains codes for my publications on distributed storage and private distributed computation, and related papers on distributed computation with robustness against stragglers, byzantine servers, and honest but curious servers.
 
 # List of files in the repository:
