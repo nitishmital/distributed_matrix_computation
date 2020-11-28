@@ -30,7 +30,7 @@ def repair(helpers, newcmrs):
 
 	Yx = matrix([[nodes[helpers[i]][tx_pkt_ind[i][j],0] for i in range((h-1)*r,h*r)] for j in range(r) for h in range(1,d/r+1)])  ## repair matrix for the evaluation points
 	Yy = matrix([[nodes[helpers[i]][tx_pkt_ind[i][j],1] for i in range((h-1)*r,h*r)] for j in range(r) for h in range(1,d/r+1)]) ## repair matrix for the coded message symbols 
-
+	
 	Yx_repair = Yx*C_gen_repair[:,r:]  # Matrix of repair packets
 	Yy_repair = Yy*C_gen_repair[:,r:]
 	c=0
@@ -67,17 +67,26 @@ def subspace_intersection(v1,v2):
 			intersection += 1
 	return intersection
 
+### Function to calculate the dimension of the subspace spanned by the list of finite field points in input.
+## Input:
+###   v: list of finite field points
+def subspace_dimension(v):
+	V = VectorSpace(GF(q),l)
+	p_lst = [V(list(V(v[i]))) for i in range(len(v))]
+	S = V.subspace(p_lst)
+	return S.dimension()
 
 if __name__ == '__main__':
-	n=6
-	k1=4
-	d=4
-	r=2
-	q=11
+	n=input('number of nodes: ')
+	k1=input('recovery threshold: ')
+	d=input('number of helpers: ')
+	r=input('number of nodes repaired: ')
+	q=input('size of base field: ')
 	base_k=GF(q)
-	l=d^2  # size of extension chosen so that there are enough linearly independent points in the finite extension field
+	#l=d^2  # size of extension chosen so that there are enough linearly independent points in the finite extension field
+	l=d*(n-r)  # size of extension chosen so that there are enough linearly independent points in the finite extension field
 	k.<x>=GF(q^l)
-	subpacketization = int(k1/2*(2*d - k1 + r)) 
+	subpacketization = int(k1/2*(2*d - k1 + r))
 	Frob=k.frobenius_endomorphism();
 	S.<y>=k['y',Frob]
 	msg=[0]*subpacketization
@@ -105,14 +114,15 @@ if __name__ == '__main__':
 
 
 	base_field_elements = [i for i in base_k if i not in [0]]
+	
+	eval_pts = random.sample(base_field_elements, n-1)
+	C_storage = codes.GeneralizedReedSolomonCode(eval_pts,d)
+	C_gen_storage = C_storage.systematic_generator_matrix()
 
 	eval_pts = random.sample(base_field_elements, 2*r)
 	C_repair = codes.GeneralizedReedSolomonCode(eval_pts,r)
 	C_gen_repair = C_repair.systematic_generator_matrix()
-
-	eval_pts = random.sample(base_field_elements, n-1)
-	C_storage = codes.GeneralizedReedSolomonCode(eval_pts,d)
-	C_gen_storage = C_storage.systematic_generator_matrix()
+	
 	##############################################
 
 
@@ -122,35 +132,56 @@ if __name__ == '__main__':
 	    ####### initializing n-1 placeholders in each node. Each row is of type (x,y), where x is the evaluation point, and y is the coded packet (evaluation of fy on x)
 	    nodes[i] = zero_matrix(k,n-1,2) 
 
-	for i in range(d):
+	for i in range(n-r):
 	   nodes[i][:d,:] = matrix(points[i*d:(i+1)*d])   # d packets in node i
 	   nodes[i][d:,:] = C_gen_storage[:,d:].transpose() * nodes[i][:d,:]  # storing the parity bits
 
 	##############################################
 
-	########## Fill in the remaining n-d nodes r nodes at a time by using the repair scheme #############
-	for i in range((n-d)/r):
-	    newcmrs = range(d+r*i,d+r*(i+1))  # node indices of r newcomers
-	    helpers = range(d)  # nodes indices of d helper nodes
-	    repair(helpers,newcmrs)
-
-        ## One repair round
-	newcmrs = [4,5]
-	helpers = [0,1,2,3]
+	########## Fill in the remaining n-r nodes by using the repair scheme #############
+	newcmrs = range(n-r,n)  # node indices of r newcomers
+	helpers = range(d)  # nodes indices of d helper nodes
 	repair(helpers,newcmrs)
-	vpoints = [nodes[j][i,ind] for j in [4,5] for i in range(d) for ind in [0]]
+
+        ## One random repair round
+	#newcmrs = [2,3,5,6]
+	newcmrs_helpers = random.sample(range(n),r+d)
+	newcmrs1 = newcmrs_helpers[0:r] # a random list of newcomer nodes
+	#helpers = [0,1,4,7,8,9,10,11,12,13,14,15]
+	helpers1 = newcmrs_helpers[r:] # a random list of helper nodes
+	repair(helpers1,newcmrs1)
+	vpoints = [nodes[j][i,ind] for j in random.sample(range(n),r) for i in range(d) for ind in [0]]
 	print("The chosen packets are linearly independent: ",verify_independence(vpoints)) # the packets in the newcomers are linearly independent
 
-	# second repair round
-	newcmrs = [1,5]
-	helpers = [0,2,3,4]
-	repair(helpers,newcmrs)
+	# multiple repair rounds
+	for loop in range(10):
+		newcmrs_helpers = random.sample(range(n),r+d)
+		newcmrs2 = newcmrs_helpers[0:r]
+		helpers2 = newcmrs_helpers[r:]
+		#newcmrs = [1,3,11,14]
+		#helpers = [0,2,4,5,6,7,8,9,10,12,13,15]
+		repair(helpers2,newcmrs2)
 
+	'''
 	## Checking the independence and intersection properties of the node contents
-	vpoints1 = [nodes[j][i,ind] for j in [0,2] for i in range(1,n-1) for ind in [0]]
-	vpoints2 = [nodes[j][i,0] for j in [1,3,4] for i in range(n-1)]
+	node_list = [i for i in range(n)]
+	sample1 = random.sample(node_list,r)
+	[node_list.remove(i) for i in sample1]
+	sample2 = random.sample(node_list,r)
+	vpoints1 = [nodes[j][i,ind] for j in sample1 for i in range(d) for ind in [0]]
+	vpoints2 = [nodes[j][i,0] for j in sample2 for i in range(d)]
 	## The intersection of the 2 spaces is expected not to be more than r
 	space_intersection = subspace_intersection(vpoints1,vpoints2)
 	print(space_intersection) 
+	'''
+	## Assuming that a user connects to a random set of k1 storage nodes.
+	## What is the dimension of the subspace stored by those k1 nodes:
+	node_list = [i for i in range(n)]
+	sample1 = random.sample(node_list,k1)
+	vpoints1 = [nodes[j][i,ind] for j in sample1 for i in range(d) for ind in [0]]
+	space_dim = subspace_dimension(vpoints1)
+	print('dimension of subspace: ',space_dim)
+	print('Number of subpackets: ',subpacketization)
 	
 	
+
