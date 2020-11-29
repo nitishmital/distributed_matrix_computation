@@ -18,7 +18,7 @@ Verify the preservation of the reconstruction property, i.e., the dimension of s
 number of nodes: 20
 recovery threshold: 10
 number of helpers: 12
-number of nodes repaired: 3
+number of nodes repaired in a single round: 3
 size of base field: 23
 ('initial evaluation points are linearly independent - ', True)
 ('The chosen packets after the first repair round are linearly independent: ', True)
@@ -33,7 +33,7 @@ sage: load("~/Distributed-matrix-computations/MBR_functional_regenerating_code.s
 number of nodes: 16
 recovery threshold: 9
 number of helpers: 12
-number of nodes repaired: 3
+number of nodes repaired in a single round: 3
 size of base field: 17
 ('initial evaluation points are linearly independent - ', True)
 ('The chosen packets after the first repair round are linearly independent: ', True)
@@ -48,7 +48,7 @@ sage: load("~/Distributed-matrix-computations/MBR_functional_regenerating_code.s
 number of nodes: 20
 recovery threshold: 10
 number of helpers: 12
-number of nodes repaired: 5
+number of nodes repaired in a single round: 5
 size of base field: 23
 ('initial evaluation points are linearly independent - ', True)
 ('The chosen packets after the first repair round are linearly independent: ', True)
@@ -63,7 +63,7 @@ sage: load("~/Distributed-matrix-computations/MBR_functional_regenerating_code.s
 number of nodes: 19
 recovery threshold: 9
 number of helpers: 11
-number of nodes repaired: 4
+number of nodes repaired in a single round: 4
 size of base field: 19
 ('initial evaluation points are linearly independent - ', True)
 ('The chosen packets after the first repair round are linearly independent: ', True)
