@@ -168,7 +168,7 @@ if __name__ == '__main__':
 		repair(helpers2,newcmrs2)
 	
 	## Check the dimension of 50 random sets of k1 nodes to estimate the probability of dimension being greater than subpacketization
-	print('Randomly checking the dimension of various k1-subspaces..')
+	print('Randomly checking the dimension of various k-subspaces..')
 	avg_dim = 0
 	space_dim = [0 for i in range(50)]
 	min_dim = subpacketization
@@ -181,7 +181,7 @@ if __name__ == '__main__':
 			min_dim = space_dim[loop]
 		avg_dim += space_dim[loop]/50
 	
-	print('average dimension of 50 k1-subspaces: ',float(avg_dim))
-	print('minimum dimension of k1-subspace: ', float(min_dim))
-	print('Number of subpackets: ',subpacketization)
+	print('average dimension of 50 k-subspaces: ',float(avg_dim))
+	print('minimum dimension of k-subspace: ', float(min_dim))
+	print('Optimal desired dimension: ',subpacketization)
 	
