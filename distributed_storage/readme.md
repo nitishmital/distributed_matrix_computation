@@ -24,10 +24,29 @@ size of base field: 23
 ('The chosen packets after the first repair round are linearly independent: ', True)
 Performing 30 repair rounds of random failures and randomly chosen helper nodes..
 Randomly checking the dimension of various k-subspaces..
-('average dimension of 50 k1-subspaces: ', 105.22)
-('minimum dimension of k1-subspace: ', 85.0)
+('average dimension of 50 k-subspaces: ', 105.22)
+('minimum dimension of k-subspace: ', 85.0)
 ('Optimal desired dimension: ', 85)
 ```
+```
+sage: load("~/Distributed-matrix-computations/MBR_functional_regenerating_code.sage")
+number of nodes: 19
+recovery threshold: 13
+number of helpers: 13
+number of nodes repaired: 4
+size of base field: 19
+('initial evaluation points are linearly independent - ', False)
+('initial evaluation points are linearly independent - ', True)
+('The chosen packets after the first repair round are linearly independent: ', True)
+Performing 30 repair rounds of random failures and randomly chosen helper nodes..
+Randomly checking the dimension of various k-subspaces..
+('average dimension of 50 k-subspaces: ', 110.0)
+('minimum dimension of k-subspace: ', 110.0)
+('Optimal desired dimension: ', 110)
+
+
+```
+
 ```
 sage: load("~/Distributed-matrix-computations/MBR_functional_regenerating_code.sage")
 number of nodes: 16
@@ -39,8 +58,8 @@ size of base field: 17
 ('The chosen packets after the first repair round are linearly independent: ', True)
 Performing 30 repair rounds of random failures and randomly chosen helper nodes..
 Randomly checking the dimension of various k-subspaces..
-('average dimension of 50 k1-subspaces: ', 82.3)
-('minimum dimension of k1-subspace: ', 78.0)
+('average dimension of 50 k-subspaces: ', 82.3)
+('minimum dimension of k-subspace: ', 78.0)
 ('Optimal desired dimension: ', 81)
 ```
 ```
@@ -54,8 +73,8 @@ size of base field: 23
 ('The chosen packets after the first repair round are linearly independent: ', True)
 Performing 30 repair rounds of random failures and randomly chosen helper nodes..
 Randomly checking the dimension of various k-subspaces..
-('average dimension of 50 k1-subspaces: ', 103.08)
-('minimum dimension of k1-subspace: ', 93.0)
+('average dimension of 50 k-subspaces: ', 103.08)
+('minimum dimension of k-subspace: ', 93.0)
 ('Optimal desired dimension: ', 95)
 ```
 ```
@@ -68,8 +87,8 @@ size of base field: 19
 ('initial evaluation points are linearly independent - ', True)
 ('The chosen packets after the first repair round are linearly independent: ', True)
 Performing 30 repair rounds of random failures and randomly chosen helper nodes..
-Randomly checking the dimension of various k1-subspaces..
-('average dimension of 50 k1-subspaces: ', 87.78)
-('minimum dimension of k1-subspace: ', 76.0)
+Randomly checking the dimension of various k-subspaces..
+('average dimension of 50 k-subspaces: ', 87.78)
+('minimum dimension of k-subspace: ', 76.0)
 ('Optimal desired dimension: ', 76)
 ```
