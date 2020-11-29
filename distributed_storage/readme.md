@@ -71,5 +71,5 @@ Performing 30 repair rounds of random failures and randomly chosen helper nodes.
 Randomly checking the dimension of various k1-subspaces..
 ('average dimension of 50 k1-subspaces: ', 87.78)
 ('minimum dimension of k1-subspace: ', 76.0)
-('Number of subpackets: ', 76)
+('Optimal desired dimension: ', 76)
 ```
