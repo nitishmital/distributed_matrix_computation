@@ -108,3 +108,18 @@ Randomly checking the dimension of various k-subspaces..
 ('Optimal desired dimension: ', 24)
 
 ```
+```
+sage: load("~/Distributed-matrix-computations/MBR_functional_regenerating_code.sage")
+number of nodes: 12
+recovery threshold: 8
+number of helpers: 8
+number of nodes repaired: 4
+size of base field: 13
+('initial evaluation points are linearly independent - ', True)
+Performing 30 repair rounds of random failures and randomly chosen helper nodes..
+Randomly checking the dimension of various k-subspaces..
+('average dimension of 50 k-subspaces: ', 49.0)
+('minimum dimension of k-subspace: ', 49.0)
+('Optimal desired dimension: ', 48)
+
+```
