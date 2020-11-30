@@ -9,7 +9,8 @@
 ################################################################################################
 
 import random
-
+from collections import deque
+import numpy as np
 ############################
 ########## Function that repairs the newcomers using the scheme in the paper ###########################
 
@@ -21,32 +22,38 @@ Inputs:
     newcmrs: list of indices of newcmr nodes
 '''
 def repair(helpers, newcmrs):
-	random.shuffle(helpers)
-	random.shuffle(newcmrs)
-	tx_pkt_ind = [[0 for i in range(len(newcmrs))] for j in range(len(helpers))] # indices of the transmitted packets from each helper node
-	
-	for i in range(len(helpers)):
-		ind = [t for t in range(n) if t not in [helpers[i]]]  # labels corresponding to all other nodes except the self for the stored packets in each node 
-		for j in range(len(newcmrs)):
-			tx_pkt_ind[i][j] = ind.index(newcmrs[j])
-		#random.shuffle(tx_pkt_ind[i])
-	cyclic_list = [[mod(i,d) for i in range((h-1)*r,h*r)] for h in range(1,ceil(float(d)/float(r) + 1)) for j in range(r)]
-	cyclic_list = cyclic_list[:d]
-	
-	Yx = matrix([[nodes[helpers[i]][tx_pkt_ind[i][mod(h,r)],0] for i in cyclic_list[h]] for h in range(len(cyclic_list))])  ## repair matrix for the evaluation points
-	
-	Yy = matrix([[nodes[helpers[i]][tx_pkt_ind[i][mod(h,r)],1] for i in cyclic_list[h]] for h in range(len(cyclic_list))]) ## repair matrix for the coded message symbols 
-	
-	Yx_repair = Yx*C_gen_repair[:,r:]  # Matrix of repair packets
-	Yy_repair = Yy*C_gen_repair[:,r:]
-	c=0
-	
-	for i in newcmrs:
-		nodes[i][:d,0] = Yx_repair[:,c]
-		nodes[i][:d,1] = Yy_repair[:,c]
-		nodes[i][d:,0] = C_gen_storage[:,d:].transpose() * nodes[i][:d,0]
-		nodes[i][d:,1] = C_gen_storage[:,d:].transpose() * nodes[i][:d,1]
-		c = c+1 
+	for ncmr in range(len(newcmrs)):	
+		random.shuffle(helpers)
+		random.shuffle(newcmrs)
+		tx_pkt_ind = [[0 for i in range(len(newcmrs))] for j in range(len(helpers))] # indices of the transmitted packets from each helper node
+		for i in range(len(helpers)):
+			ind = [t for t in range(n) if t not in [helpers[i]]]  # labels corresponding to all other nodes except the self for the stored packets in each node 
+			for j in range(len(newcmrs)):
+				tx_pkt_ind[i][j] = ind.index(newcmrs[j])
+
+		cyclic_list_tmp = [[[j,i] for j in range(d)] for i in range(r)]
+		cyclic_list_tmp = cyclic_list_tmp[:d]
+		cyclic_list = cyclic_list_tmp
+		
+		for i in range(r):
+			c_list = deque(cyclic_list_tmp[i])
+			c_list.rotate(i)
+			c_list = list(c_list)
+			cyclic_list[i] = c_list
+		
+		cyclic_list = [[cyclic_list[i][j] for i in range(len(cyclic_list))] for j in range(len(cyclic_list[0]))]
+		
+		Yx = matrix([[nodes[helpers[h[0]]][tx_pkt_ind[h[0]][h[1]],0] for h in cyclic_list[i]] for i in range(len(cyclic_list))])  ## repair matrix for the evaluation points
+		
+		Yy = matrix([[nodes[helpers[h[0]]][tx_pkt_ind[h[0]][h[1]],1] for h in cyclic_list[i]] for i in range(len(cyclic_list))])  ## repair matrix for the evaluation points 
+		
+		Yx_repair = Yx*C_gen_repair[:,r+ncmr]  # Matrix of repair packets
+		Yy_repair = Yy*C_gen_repair[:,r+ncmr]
+		nodes[newcmrs[ncmr]][:d,0] = Yx_repair[:,0]
+		nodes[newcmrs[ncmr]][:d,1] = Yy_repair[:,0]
+		nodes[newcmrs[ncmr]][d:,0] = C_gen_storage[:,d:].transpose() * nodes[newcmrs[ncmr]][:d,0]
+		nodes[newcmrs[ncmr]][d:,1] = C_gen_storage[:,d:].transpose() * nodes[newcmrs[ncmr]][:d,1]
+		
 ###############################################
 
 
@@ -142,11 +149,12 @@ if __name__ == '__main__':
 
 	##############################################
 
-	########## Fill in the remaining n-r nodes by using the repair scheme #############
+	########## Fill in the remaining n-r nodes by using the repair scheme ###########
 	newcmrs = range(n-r,n)  # node indices of r newcomers
 	helpers = range(d)  # nodes indices of d helper nodes
 	repair(helpers,newcmrs)
 	
+	'''
         ## One repair round
 	#newcmrs = [2,3,5,6]
 	newcmrs_helpers = random.sample(range(n),r+d)
@@ -154,8 +162,9 @@ if __name__ == '__main__':
 	#helpers = [0,1,4,7,8,9,10,11,12,13,14,15]
 	helpers1 = newcmrs_helpers[r:]
 	repair(helpers1,newcmrs1)
-	vpoints = [nodes[j][i,ind] for j in random.sample(range(n),r) for i in range(d) for ind in [0]]
+	vpoints = [nodes[j][i,ind] for j in range(n-r,n) for i in range(d) for ind in [0]]
 	print("The chosen packets after the first repair round are linearly independent: ",verify_independence(vpoints)) # the packets in the newcomers are linearly independent
+	'''
 	
 	# multiple repair rounds
 	print('Performing 30 repair rounds of random failures and randomly chosen helper nodes..')
@@ -167,14 +176,29 @@ if __name__ == '__main__':
 		#helpers = [0,2,4,5,6,7,8,9,10,12,13,15]
 		repair(helpers2,newcmrs2)
 	
+	
+	'''
+	## Checking the independence and intersection properties of the node contents
+	node_list = [i for i in range(n)]
+	sample1 = random.sample(node_list,r)
+	[node_list.remove(i) for i in sample1]
+	sample2 = random.sample(node_list,r)
+	vpoints1 = [nodes[j][i,ind] for j in sample1 for i in range(d) for ind in [0]]
+	vpoints2 = [nodes[j][i,0] for j in sample2 for i in range(d)]
+	## The intersection of the 2 spaces is expected not to be more than r
+	space_intersection = subspace_intersection(vpoints1,vpoints2)
+	print(space_intersection) 
+	'''
+	
 	## Check the dimension of 50 random sets of k1 nodes to estimate the probability of dimension being greater than subpacketization
 	print('Randomly checking the dimension of various k-subspaces..')
 	avg_dim = 0
 	space_dim = [0 for i in range(50)]
-	min_dim = subpacketization
+	min_dim = l
 	for loop in range(50):
 		node_list = [i for i in range(n)]
 		sample1 = random.sample(node_list,k1)
+		#sample1 = range(n-r,n)
 		vpoints1 = [nodes[j][i,ind] for j in sample1 for i in range(d) for ind in [0]]
 		space_dim[loop] = subspace_dimension(vpoints1)
 		if space_dim[loop] < min_dim:
@@ -185,3 +209,6 @@ if __name__ == '__main__':
 	print('minimum dimension of k-subspace: ', float(min_dim))
 	print('Optimal desired dimension: ',subpacketization)
 	
+	
+	
+
