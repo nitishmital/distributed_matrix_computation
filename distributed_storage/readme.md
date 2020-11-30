@@ -58,8 +58,8 @@ size of base field: 17
 ('The chosen packets after the first repair round are linearly independent: ', True)
 Performing 30 repair rounds of random failures and randomly chosen helper nodes..
 Randomly checking the dimension of various k-subspaces..
-('average dimension of 50 k-subspaces: ', 82.3)
-('minimum dimension of k-subspace: ', 78.0)
+('average dimension of 50 k-subspaces: ', 93.02)
+('minimum dimension of k-subspace: ', 85.0)
 ('Optimal desired dimension: ', 81)
 ```
 ```
@@ -73,8 +73,8 @@ size of base field: 23
 ('The chosen packets after the first repair round are linearly independent: ', True)
 Performing 30 repair rounds of random failures and randomly chosen helper nodes..
 Randomly checking the dimension of various k-subspaces..
-('average dimension of 50 k-subspaces: ', 103.08)
-('minimum dimension of k-subspace: ', 93.0)
+('average dimension of 50 k-subspaces: ', 118.68)
+('minimum dimension of k-subspace: ', 113.0)
 ('Optimal desired dimension: ', 95)
 ```
 ```
@@ -121,5 +121,20 @@ Randomly checking the dimension of various k-subspaces..
 ('average dimension of 50 k-subspaces: ', 49.0)
 ('minimum dimension of k-subspace: ', 49.0)
 ('Optimal desired dimension: ', 48)
+
+```
+```
+sage: load("~/Distributed-matrix-computations/MBR_functional_regenerating_code.sage")
+number of nodes: 16
+recovery threshold: 7
+number of helpers: 9
+number of nodes repaired: 7
+size of base field: 17
+('initial evaluation points are linearly independent - ', True)
+Performing 30 repair rounds of random failures and randomly chosen helper nodes..
+Randomly checking the dimension of various k-subspaces..
+('average dimension of 50 k-subspaces: ', 63.0)
+('minimum dimension of k-subspace: ', 63.0)
+('Optimal desired dimension: ', 63)
 
 ```
