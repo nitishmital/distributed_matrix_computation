@@ -13,6 +13,120 @@ Verify the preservation of the reconstruction property, i.e., the dimension of s
 3. ``` sage: load("~/Distributed-matrix-computations/MBR.sage") ```. Put appropriate path to the file instead of this path.  
 
 ## Sample runs:
+
+```
+sage: load("~/Distributed-matrix-computations/MBR_functional_regenerating_code.sage")
+number of nodes: 20
+recovery threshold: 7
+number of helpers: 13
+number of nodes repaired: 7
+size of base field: 23
+('initial evaluation points are linearly independent - ', True)
+Performing 30 repair rounds of random failures and randomly chosen helper nodes..
+Randomly checking the dimension of various k-subspaces..
+('average dimension of 50 k-subspaces: ', 91.0)
+('minimum dimension of k-subspace: ', 91.0)
+('Optimal desired dimension: ', 91)
+```
+
+```
+sage: load("~/Distributed-matrix-computations/MBR_functional_regenerating_code.sage")
+number of nodes: 20
+recovery threshold: 7
+number of helpers: 12
+number of nodes repaired: 7
+size of base field: 23
+('initial evaluation points are linearly independent - ', True)
+Performing 30 repair rounds of random failures and randomly chosen helper nodes..
+Randomly checking the dimension of various k-subspaces..
+('average dimension of 50 k-subspaces: ', 84.0)
+('minimum dimension of k-subspace: ', 84.0)
+('Optimal desired dimension: ', 84)
+```
+
+```
+sage: load("~/Distributed-matrix-computations/MBR_functional_regenerating_code.sage")
+number of nodes: 20
+recovery threshold: 7
+number of helpers: 11
+number of nodes repaired: 7
+size of base field: 23
+('initial evaluation points are linearly independent - ', True)
+Performing 30 repair rounds of random failures and randomly chosen helper nodes..
+Randomly checking the dimension of various k-subspaces..
+('average dimension of 50 k-subspaces: ', 77.0)
+('minimum dimension of k-subspace: ', 77.0)
+('Optimal desired dimension: ', 77)
+
+```
+
+```sage: load("~/Distributed-matrix-computations/MBR_functional_regenerating_code.sage"
+....: )
+number of nodes: 20
+recovery threshold: 7
+number of helpers: 10
+number of nodes repaired: 7
+size of base field: 23
+('initial evaluation points are linearly independent - ', True)
+Performing 30 repair rounds of random failures and randomly chosen helper nodes..
+Randomly checking the dimension of various k-subspaces..
+('average dimension of 50 k-subspaces: ', 70.0)
+('minimum dimension of k-subspace: ', 70.0)
+('Optimal desired dimension: ', 70)
+
+```
+
+```
+sage: load("~/Distributed-matrix-computations/MBR_functional_regenerating_code.sage"
+....: )
+number of nodes: 20
+recovery threshold: 7
+number of helpers: 9
+number of nodes repaired: 7
+size of base field: 23
+('initial evaluation points are linearly independent - ', False)
+('initial evaluation points are linearly independent - ', True)
+Performing 30 repair rounds of random failures and randomly chosen helper nodes..
+Randomly checking the dimension of various k-subspaces..
+('average dimension of 50 k-subspaces: ', 63.0)
+('minimum dimension of k-subspace: ', 63.0)
+('Optimal desired dimension: ', 63)
+
+```
+
+```
+sage: load("~/Distributed-matrix-computations/MBR_functional_regenerating_code.sage"
+....: )
+number of nodes: 20
+recovery threshold: 7
+number of helpers: 8
+number of nodes repaired: 7
+size of base field: 23
+('initial evaluation points are linearly independent - ', True)
+Performing 30 repair rounds of random failures and randomly chosen helper nodes..
+Randomly checking the dimension of various k-subspaces..
+('average dimension of 50 k-subspaces: ', 56.0)
+('minimum dimension of k-subspace: ', 56.0)
+('Optimal desired dimension: ', 56)
+
+```
+```
+sage: load("~/Distributed-matrix-computations/MBR_functional_regenerating_code.sage"
+....: )
+number of nodes: 20
+recovery threshold: 7
+number of helpers: 7
+number of nodes repaired: 7
+size of base field: 23
+('initial evaluation points are linearly independent - ', True)
+Performing 30 repair rounds of random failures and randomly chosen helper nodes..
+Randomly checking the dimension of various k-subspaces..
+('average dimension of 50 k-subspaces: ', 49.0)
+('minimum dimension of k-subspace: ', 49.0)
+('Optimal desired dimension: ', 49)
+
+```
+
  ```
  sage: load("~/Distributed-matrix-computations/MBR_functional_regenerating_code.sage")
 number of nodes: 20
