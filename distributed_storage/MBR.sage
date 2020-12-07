@@ -167,8 +167,8 @@ if __name__ == '__main__':
 	'''
 	
 	# multiple repair rounds
-	print('Performing 30 repair rounds of random failures and randomly chosen helper nodes..')
-	for loop in range(30):
+	print('Performing 100 repair rounds of random failures and randomly chosen helper nodes..')
+	for loop in range(100):
 		newcmrs_helpers = random.sample(range(n),r+d)
 		newcmrs2 = newcmrs_helpers[0:r]
 		helpers2 = newcmrs_helpers[r:]
