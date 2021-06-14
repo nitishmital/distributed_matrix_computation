@@ -4,8 +4,6 @@ Contains codes for my publications on distributed storage and private distribute
 
 ## 1) SDMC_DFT.sage :
 
-Author: Nitish Mital
-
 Implementation of the paper "Secure Distributed Matrix Computation with Discrete Fourier Transform" - Nitish Mital, Cong Ling, Deniz Gunduz. 
 
 Open access - https://arxiv.org/abs/2007.03972
@@ -26,8 +24,6 @@ This code implements matrix multiplication, addition, conversion of shares. The 
 
 ## MBR_functional_regenerating_code.sage :
 
-Author - Nitish Mital
-
 Implementation of my paper - N. Mital, K. Kralevska, C. Ling, D. Gunduz, "Practical Functional Regenerating Codes for Broadcast Repair of Multiple Nodes", ISIT Paris, 2019. 
  
 Open access - https://arxiv.org/abs/1904.07273 
@@ -45,8 +41,6 @@ This code works considers only the case when k and d are divisible by r. An upda
 
 ## MatDot.sage :
 
-Author - Nitish Mital
-
 Implementation of the paper "On the Optimal Recovery Threshold of Coded Matrix Multiplication" - Sanghamitra Dutta, Mohammad Fahim, Farzin Haddadpour, Haewon Jeong, Viveck Cadambe.
 
 Open access - https://arxiv.org/abs/1801.10292
@@ -58,8 +52,6 @@ The model implemented in this code is slightly different from that in the paper,
 This code simulates distributed source nodes, a computing cluster with N computing servers, and the user wanting to compute the multiplication of the input matrices generated on the source nodes using the computing cluster. Redundancy is introduced using MatDot codes proposed in the paper, such that the result can be obtained by the user from any K out of N workers that return their computations first.
 
 ## polynomial_straggler.sage :
-
-Author - Nitish Mital
 
 Implementation of the paper "Polynomial Codes: an Optimal Design for High-Dimensional Coded Matrix Multiplication" - Qian Yu, Mohammad Ali Maddah-Ali, Salman Avestimehr.
 
