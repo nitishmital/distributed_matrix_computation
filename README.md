@@ -6,6 +6,24 @@ Contains codes for my publications on distributed storage and private distribute
 
 Implementation of the paper "Secure Distributed Matrix Computation with Discrete Fourier Transform" - Nitish Mital, Cong Ling, Deniz Gunduz. 
 
+## Citation:
+```bash
+@article{DBLP:journals/corr/abs-2007-03972,
+  author    = {Nitish Mital and
+               Cong Ling and
+               Deniz G{\"{u}}nd{\"{u}}z},
+  title     = {Secure Distributed Matrix Computation with Discrete Fourier Transform},
+  journal   = {CoRR},
+  volume    = {abs/2007.03972},
+  year      = {2020},
+  url       = {https://arxiv.org/abs/2007.03972},
+  eprinttype = {arXiv},
+  eprint    = {2007.03972},
+  timestamp = {Mon, 20 Jul 2020 14:20:39 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-2007-03972.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+```
 Open access - https://arxiv.org/abs/2007.03972
 
 We consider the problem of secure distributed matrix computation (SDMC), where a user can query a function of data matrices generated at distributed source nodes. We assume the availability of N honest but curious computation servers, which are connected to the sources, the user, and each other through orthogonal and reliable communication links. Our goal is to minimize the amount of data that must be transmitted from the sources to the servers, called the upload cost, while guaranteeing that no T colluding servers can learn any information about the source matrices, and the user cannot learn any information beyond the computation result.
